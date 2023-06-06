@@ -1,5 +1,6 @@
 package sensores;
 
+import ambiente.Tigre;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Line2D;
@@ -14,7 +15,7 @@ public class See extends Line2D.Double{
         super(startX, startY, endX, endY);
     }
     
-    public void update(int posX, int posY){
+    public void update(int posX, int posY, Tigre agente){
         int multiplicadoAleatorio = random.nextInt(5)+1;
         
         int randomInt = random.nextInt(100000) * multiplicadoAleatorio;
@@ -44,6 +45,10 @@ public class See extends Line2D.Double{
 
             x2= posX+16;
             y2 = posY+range;
+        }
+        
+        if(this.intersects(agente)){
+            System.out.println("!!Rato");
         }
         
     }

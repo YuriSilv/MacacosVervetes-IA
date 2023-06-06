@@ -1,23 +1,43 @@
 package sensores;
 
+import agentes.Vector2D;
+import ambiente.Tigre;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 
 public class Listen extends Ellipse2D.Double {
-    protected int type;
+    protected int countSignal = 0;
+    private int message = 0;
     
     public Listen(double x, double y, double diametro){
-        super(x,y, diametro, diametro);
+        super(x-diametro/2, y-diametro/2, diametro, diametro);
     }
     
-    public void update(int posX, int posY){
-        x = posX+16; //centralizar
-        y = posY;
+    public void update(int posX, int posY, Tigre agente){
+        x = posX+16 - this.getWidth()/2; //centralizar
+        y = posY - this.getWidth()/2;
+        if(this.intersects(agente) && countSignal <= 0){
+            setMessage(1);
+            System.out.println("Tigre!!");
+            countSignal = 30;
+        }
+        countSignal -=1;
     }
     
     public void render(Graphics g){
-        g.setColor(new Color(0, 255, 0, 50));
-        g.drawOval((int) (x - this.getWidth()/2) , (int) (y - this.getWidth()/2), (int) this.getWidth(), (int)this.getHeight());  
+        g.setColor(new Color(255, 250, 180, 150));
+        g.drawOval((int) (x) , (int) (y), (int) this.getWidth(), (int)this.getHeight());  
     }
+
+    public int getMessage() {
+        return message;
+    }
+
+    public void setMessage(int message) {
+        this.message = message;
+    }
+    
+   
 }

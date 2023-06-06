@@ -2,6 +2,7 @@ package com.yuri.vervets;
 
 import agentes.Macaco;
 import ambiente.Mundo;
+import ambiente.Tigre;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,8 +20,9 @@ public class Vervets extends Canvas implements Runnable{
     
     public Vervets() throws IOException{
         this.setPreferredSize(new Dimension(Settings.WIDTH, Settings.HEIGHT)); //tamanho da tela
-        macaco[0] = new Macaco(640,320);
-        macaco[1] = new Macaco(640,320);
+        //macaco[0] = new Macaco(640,320);
+        macaco[1] = new Macaco(640,220);
+        
         mundo = new Mundo();
     }
     
@@ -41,8 +43,9 @@ public class Vervets extends Canvas implements Runnable{
     }
     
     public void update(){ //atualização
-        macaco[0].update();
-        macaco[1].update();
+        //macaco[0].update(Mundo.tigre);
+        macaco[1].update(Mundo.tigre);
+        mundo.update();
     }
     
     public void render(){ //renderização
@@ -55,14 +58,12 @@ public class Vervets extends Canvas implements Runnable{
         
         Graphics graphics = bs.getDrawGraphics(); //desenhar gráficos
         
-        graphics.setColor(Color.white);
+        graphics.setColor(new Color(125, 175, 105));
         graphics.fillRect(0,0, Settings.WIDTH, Settings.HEIGHT); //redesenha sobre o JFrame a cada frame (evita tela piscando)
         
         mundo.render(graphics);
-        macaco[0].render(graphics);
+        //macaco[0].render(graphics);
         macaco[1].render(graphics);
-        
-
         bs.show();
     }
 
